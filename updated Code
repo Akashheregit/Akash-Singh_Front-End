@@ -11,7 +11,7 @@ const WrappedSingleListItem = ({
   return (
     <li
       style={{ backgroundColor: isSelected ? 'green' : 'red'}}
-      onClick={() => onClickHandler(index)} // onClickHandler should be wrapped in a function to avoid invoking it on render
+      onClick={() => onClickHandler(index)}
     >
       {text}
     </li>
@@ -28,44 +28,41 @@ WrappedSingleListItem.propTypes = {
 const SingleListItem = memo(WrappedSingleListItem);
 
 // List Component
-const WrappedListComponent = ({
-  items,
-}) => {
-  const [selectedIndex, setSelectedIndex] = useState(null); // Fix incorrect syntax on this line
+const WrappedListComponent = ({ items = [] }) => {
+  const [selectedIndex, setSelectedIndex] = useState(null);
 
   useEffect(() => {
     setSelectedIndex(null);
   }, [items]);
 
-  const handleClick = index => {
+  const handleClick = (index) => {
     setSelectedIndex(index);
   };
 
   return (
     <ul style={{ textAlign: 'left' }}>
-      {items && items.map((item, index) => ( // Fix null check on this line
+      {items && items.map((item, index) => (
         <SingleListItem
-          key={index} // Add unique key prop for each item
           onClickHandler={() => handleClick(index)}
           text={item.text}
           index={index}
-          isSelected={selectedIndex === index} // Fix isSelected comparison on this line
+          isSelected={selectedIndex === index}
+          key={index}
         />
       ))}
     </ul>
-  )
+  );
 };
 
 WrappedListComponent.propTypes = {
-  items: PropTypes.arrayOf(PropTypes.shape({
-    text: PropTypes.string.isRequired,
-  })),
-};
-
-WrappedListComponent.defaultProps = {
-  items: null,
+  items: PropTypes.arrayOf(
+    PropTypes.shape({
+      text: PropTypes.string.isRequired,
+    })
+  ),
 };
 
 const List = memo(WrappedListComponent);
 
 export default List;
+
