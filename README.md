@@ -13,3 +13,5 @@ Sol: a)   The PropTypes.array and PropTypes.shapeOf should be written as PropTyp
   c) The onClickHandler prop in the WrappedSingleListItem component is being called immediately when the component is rendered, instead of being passed as a function to be called later when the item is clicked. This line:
 onClick={onClickHandler(index)}
   d)The setSelectedIndex state setter function is being called instead of selectedIndex in the WrappedListComponent component. This line: const [setSelectedIndex, selectedIndex] = useState();
+
+Q3) The updated ( fix, optimize, and/or modify the component as much as you think is necessary.) Code is in the updated Code repository:
